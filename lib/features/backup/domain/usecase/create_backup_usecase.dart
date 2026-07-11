@@ -15,7 +15,9 @@ class CreateBackupUsecase
   CreateBackupUsecase(this.repository);
 
   @override
-  Future<Either<Failure, BackupInfoEntity>> call(NoParams params) {
+  Future<Either<Failure, BackupInfoEntity>> call(
+    NoParams params,
+  ) {
     return repository.createBackup();
   }
 }

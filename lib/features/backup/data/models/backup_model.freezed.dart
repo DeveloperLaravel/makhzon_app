@@ -122,7 +122,10 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _BackupModel():
-return $default(_that);}
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -181,7 +184,10 @@ return $default(_that.version,_that.appName,_that.createdAt,_that.warehouses,_th
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int version,  String appName,  DateTime createdAt,  List<Map<String, dynamic>> warehouses,  List<Map<String, dynamic>> items,  List<Map<String, dynamic>> stocks,  List<Map<String, dynamic>> issues,  List<Map<String, dynamic>> transfers)  $default,) {final _that = this;
 switch (_that) {
 case _BackupModel():
-return $default(_that.version,_that.appName,_that.createdAt,_that.warehouses,_that.items,_that.stocks,_that.issues,_that.transfers);}
+return $default(_that.version,_that.appName,_that.createdAt,_that.warehouses,_that.items,_that.stocks,_that.issues,_that.transfers);case _:
+  throw StateError('Unexpected subclass');
+
+}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -210,42 +216,42 @@ return $default(_that.version,_that.appName,_that.createdAt,_that.warehouses,_th
 @JsonSerializable()
 
 class _BackupModel implements BackupModel {
-  const _BackupModel({required this.version, required this.appName, required this.createdAt, required final  List<Map<String, dynamic>> warehouses, required final  List<Map<String, dynamic>> items, required final  List<Map<String, dynamic>> stocks, required final  List<Map<String, dynamic>> issues, required final  List<Map<String, dynamic>> transfers}): _warehouses = warehouses,_items = items,_stocks = stocks,_issues = issues,_transfers = transfers;
+  const _BackupModel({required this.version, required this.appName, required this.createdAt, final  List<Map<String, dynamic>> warehouses = const <Map<String, dynamic>>[], final  List<Map<String, dynamic>> items = const <Map<String, dynamic>>[], final  List<Map<String, dynamic>> stocks = const <Map<String, dynamic>>[], final  List<Map<String, dynamic>> issues = const <Map<String, dynamic>>[], final  List<Map<String, dynamic>> transfers = const <Map<String, dynamic>>[]}): _warehouses = warehouses,_items = items,_stocks = stocks,_issues = issues,_transfers = transfers;
   factory _BackupModel.fromJson(Map<String, dynamic> json) => _$BackupModelFromJson(json);
 
 @override final  int version;
 @override final  String appName;
 @override final  DateTime createdAt;
  final  List<Map<String, dynamic>> _warehouses;
-@override List<Map<String, dynamic>> get warehouses {
+@override@JsonKey() List<Map<String, dynamic>> get warehouses {
   if (_warehouses is EqualUnmodifiableListView) return _warehouses;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_warehouses);
 }
 
  final  List<Map<String, dynamic>> _items;
-@override List<Map<String, dynamic>> get items {
+@override@JsonKey() List<Map<String, dynamic>> get items {
   if (_items is EqualUnmodifiableListView) return _items;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_items);
 }
 
  final  List<Map<String, dynamic>> _stocks;
-@override List<Map<String, dynamic>> get stocks {
+@override@JsonKey() List<Map<String, dynamic>> get stocks {
   if (_stocks is EqualUnmodifiableListView) return _stocks;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_stocks);
 }
 
  final  List<Map<String, dynamic>> _issues;
-@override List<Map<String, dynamic>> get issues {
+@override@JsonKey() List<Map<String, dynamic>> get issues {
   if (_issues is EqualUnmodifiableListView) return _issues;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_issues);
 }
 
  final  List<Map<String, dynamic>> _transfers;
-@override List<Map<String, dynamic>> get transfers {
+@override@JsonKey() List<Map<String, dynamic>> get transfers {
   if (_transfers is EqualUnmodifiableListView) return _transfers;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_transfers);

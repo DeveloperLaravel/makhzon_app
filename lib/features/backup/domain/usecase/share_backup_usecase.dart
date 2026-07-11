@@ -7,13 +7,16 @@ import '../../../../core/usecase/usecase.dart';
 import '../repositories/backup_repository.dart';
 
 @injectable
-class ShareBackupUsecase implements Usecase<Unit, String> {
+class ShareBackupUsecase
+    implements Usecase<Unit, String> {
   final BackupRepository repository;
 
   ShareBackupUsecase(this.repository);
 
   @override
-  Future<Either<Failure, Unit>> call(String filePath) {
+  Future<Either<Failure, Unit>> call(
+    String filePath,
+  ) {
     return repository.shareBackup(
       filePath: filePath,
     );

@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:share_plus/share_plus.dart';
 
+import '../../../../core/backup/backup_exception.dart';
 import '../../../../core/backup/backup_file_service.dart';
 import '../../../../core/error/failure.dart';
 
@@ -15,7 +14,8 @@ import '../datasources/backup_local_datasource.dart';
 import '../models/backup_model.dart';
 
 @LazySingleton(as: BackupRepository)
-class BackupRepositoryImpl implements BackupRepository {
+class BackupRepositoryImpl
+    implements BackupRepository {
   final BackupLocalDatasource datasource;
   final BackupFileService fileService;
 
@@ -25,15 +25,18 @@ class BackupRepositoryImpl implements BackupRepository {
   });
 
   @override
-  Future<Either<Failure, BackupInfoEntity>> createBackup() async {
+  Future<Either<Failure, BackupInfoEntity>>
+      createBackup() async {
     try {
       final backup = await datasource.createBackup();
 
-      final jsonContent = const JsonEncoder.withIndent('  ').convert(
+      final jsonContent =
+          const JsonEncoder.withIndent('  ').convert(
         backup.toJson(),
       );
 
-      final file = await fileService.createBackupFile(
+      final file =
+          await fileService.createBackupFile(
         jsonContent: jsonContent,
       );
 
@@ -41,17 +44,34 @@ class BackupRepositoryImpl implements BackupRepository {
         BackupInfoEntity(
           filePath: file.path,
           fileName: file.uri.pathSegments.last,
-          createdAt: backup.createdAt,
-          warehousesCount: backup.warehouses.length,
+          createdAt: backup.createdAt.toLocal(),
+          warehousesCount:
+              backup.warehouses.length,
           itemsCount: backup.items.length,
           stocksCount: backup.stocks.length,
           issuesCount: backup.issues.length,
-          transfersCount: backup.transfers.length,
+          transfersCount:
+              backup.transfers.length,
         ),
       );
-    } catch (e) {
+    } catch (error) {
       return Left(
-        Failure(e.toString()),
+        _mapFailure(error),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, String?>>
+      pickBackupFile() async {
+    try {
+      final path =
+          await fileService.pickBackupFile();
+
+      return Right(path);
+    } catch (error) {
+      return Left(
+        _mapFailure(error),
       );
     }
   }
@@ -61,7 +81,8 @@ class BackupRepositoryImpl implements BackupRepository {
     required String filePath,
   }) async {
     try {
-      final jsonContent = await fileService.readBackupFile(
+      final jsonContent =
+          await fileService.readBackupFile(
         path: filePath,
       );
 
@@ -69,18 +90,27 @@ class BackupRepositoryImpl implements BackupRepository {
 
       if (decoded is! Map<String, dynamic>) {
         return const Left(
-          Failure('صيغة ملف النسخة الاحتياطية غير صحيحة'),
+          Failure(
+            'بنية ملف النسخة الاحتياطية غير صحيحة',
+          ),
         );
       }
 
-      final backup = BackupModel.fromJson(decoded);
+      final backup =
+          BackupModel.fromJson(decoded);
 
       await datasource.restoreBackup(backup);
 
       return const Right(unit);
-    } catch (e) {
+    } on FormatException {
+      return const Left(
+        Failure(
+          'ملف النسخة الاحتياطية لا يحتوي على JSON صالح',
+        ),
+      );
+    } catch (error) {
       return Left(
-        Failure(e.toString()),
+        _mapFailure(error),
       );
     }
   }
@@ -90,29 +120,25 @@ class BackupRepositoryImpl implements BackupRepository {
     required String filePath,
   }) async {
     try {
-      final file = File(filePath);
-
-      if (!await file.exists()) {
-        return const Left(
-          Failure('ملف النسخة الاحتياطية غير موجود'),
-        );
-      }
-
-      await SharePlus.instance.share(
-        ShareParams(
-          files: [
-            XFile(filePath),
-          ],
-          subject: 'Makhzon Backup',
-          text: 'نسخة احتياطية من تطبيق Makhzon',
-        ),
+      await fileService.shareBackupFile(
+        path: filePath,
       );
 
       return const Right(unit);
-    } catch (e) {
+    } catch (error) {
       return Left(
-        Failure(e.toString()),
+        _mapFailure(error),
       );
     }
+  }
+
+  Failure _mapFailure(Object error) {
+    if (error is BackupException) {
+      return Failure(error.message);
+    }
+
+    return Failure(
+      'حدث خطأ غير متوقع: $error',
+    );
   }
 }

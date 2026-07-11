@@ -10,21 +10,31 @@ _BackupModel _$BackupModelFromJson(Map<String, dynamic> json) => _BackupModel(
   version: (json['version'] as num).toInt(),
   appName: json['appName'] as String,
   createdAt: DateTime.parse(json['createdAt'] as String),
-  warehouses: (json['warehouses'] as List<dynamic>)
-      .map((e) => e as Map<String, dynamic>)
-      .toList(),
-  items: (json['items'] as List<dynamic>)
-      .map((e) => e as Map<String, dynamic>)
-      .toList(),
-  stocks: (json['stocks'] as List<dynamic>)
-      .map((e) => e as Map<String, dynamic>)
-      .toList(),
-  issues: (json['issues'] as List<dynamic>)
-      .map((e) => e as Map<String, dynamic>)
-      .toList(),
-  transfers: (json['transfers'] as List<dynamic>)
-      .map((e) => e as Map<String, dynamic>)
-      .toList(),
+  warehouses:
+      (json['warehouses'] as List<dynamic>?)
+          ?.map((e) => e as Map<String, dynamic>)
+          .toList() ??
+      const <Map<String, dynamic>>[],
+  items:
+      (json['items'] as List<dynamic>?)
+          ?.map((e) => e as Map<String, dynamic>)
+          .toList() ??
+      const <Map<String, dynamic>>[],
+  stocks:
+      (json['stocks'] as List<dynamic>?)
+          ?.map((e) => e as Map<String, dynamic>)
+          .toList() ??
+      const <Map<String, dynamic>>[],
+  issues:
+      (json['issues'] as List<dynamic>?)
+          ?.map((e) => e as Map<String, dynamic>)
+          .toList() ??
+      const <Map<String, dynamic>>[],
+  transfers:
+      (json['transfers'] as List<dynamic>?)
+          ?.map((e) => e as Map<String, dynamic>)
+          .toList() ??
+      const <Map<String, dynamic>>[],
 );
 
 Map<String, dynamic> _$BackupModelToJson(_BackupModel instance) =>

@@ -6,4 +6,6 @@ abstract final class BackupConstants {
   static const String filePrefix = 'makhzon_backup';
 
   static const String fileExtension = 'json';
+
+  static const String mimeType = 'application/json';
 }

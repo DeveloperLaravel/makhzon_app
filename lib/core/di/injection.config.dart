@@ -22,6 +22,8 @@ import 'package:makhzon_app/features/backup/domain/repositories/backup_repositor
     as _i433;
 import 'package:makhzon_app/features/backup/domain/usecase/create_backup_usecase.dart'
     as _i453;
+import 'package:makhzon_app/features/backup/domain/usecase/pick_backup_file_usecase.dart'
+    as _i599;
 import 'package:makhzon_app/features/backup/domain/usecase/restore_backup_usecase.dart'
     as _i862;
 import 'package:makhzon_app/features/backup/domain/usecase/share_backup_usecase.dart'
@@ -195,6 +197,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i453.CreateBackupUsecase>(
       () => _i453.CreateBackupUsecase(gh<_i433.BackupRepository>()),
     );
+    gh.factory<_i599.PickBackupFileUsecase>(
+      () => _i599.PickBackupFileUsecase(gh<_i433.BackupRepository>()),
+    );
     gh.factory<_i862.RestoreBackupUsecase>(
       () => _i862.RestoreBackupUsecase(gh<_i433.BackupRepository>()),
     );
@@ -245,6 +250,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i737.BackupBloc>(
       () => _i737.BackupBloc(
         createBackup: gh<_i453.CreateBackupUsecase>(),
+        pickBackupFile: gh<_i599.PickBackupFileUsecase>(),
         restoreBackup: gh<_i862.RestoreBackupUsecase>(),
         shareBackup: gh<_i523.ShareBackupUsecase>(),
       ),

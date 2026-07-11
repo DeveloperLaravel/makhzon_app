@@ -42,12 +42,13 @@ class WarehouseView extends StatelessWidget {
               }
 
               return ListView.builder(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(19),
                 itemCount: warehouses.length,
                 itemBuilder: (context, index) {
                   final warehouse = warehouses[index];
 
                   return Card(
+                    
                     child: ListTile(
                       leading: const Icon(Icons.warehouse),
                       title: Text(warehouse.name),
@@ -55,6 +56,7 @@ class WarehouseView extends StatelessWidget {
                         '${warehouse.code}'
                         '${warehouse.location == null ? '' : ' - ${warehouse.location}'}',
                       ),
+                      
                       trailing: PopupMenuButton<String>(
                         onSelected: (value) {
                           if (value == 'edit') {
@@ -80,9 +82,14 @@ class WarehouseView extends StatelessWidget {
                             child: Text('حذف'),
                           ),
                         ],
+                        
+                        
                       ),
+                      
                     ),
+                    
                   );
+                  
                 },
               );
             },

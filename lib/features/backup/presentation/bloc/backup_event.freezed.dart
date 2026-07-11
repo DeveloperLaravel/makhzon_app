@@ -55,13 +55,15 @@ extension BackupEventPatterns on BackupEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( BackupCreated value)?  backupCreated,TResult Function( BackupShared value)?  backupShared,TResult Function( BackupRestored value)?  backupRestored,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( BackupCreateRequested value)?  createRequested,TResult Function( BackupShareRequested value)?  shareRequested,TResult Function( BackupPickAndRestoreRequested value)?  pickAndRestoreRequested,TResult Function( BackupRestoreConfirmed value)?  restoreConfirmed,TResult Function( BackupMessageConsumed value)?  messageConsumed,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case BackupCreated() when backupCreated != null:
-return backupCreated(_that);case BackupShared() when backupShared != null:
-return backupShared(_that);case BackupRestored() when backupRestored != null:
-return backupRestored(_that);case _:
+case BackupCreateRequested() when createRequested != null:
+return createRequested(_that);case BackupShareRequested() when shareRequested != null:
+return shareRequested(_that);case BackupPickAndRestoreRequested() when pickAndRestoreRequested != null:
+return pickAndRestoreRequested(_that);case BackupRestoreConfirmed() when restoreConfirmed != null:
+return restoreConfirmed(_that);case BackupMessageConsumed() when messageConsumed != null:
+return messageConsumed(_that);case _:
   return orElse();
 
 }
@@ -79,16 +81,15 @@ return backupRestored(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( BackupCreated value)  backupCreated,required TResult Function( BackupShared value)  backupShared,required TResult Function( BackupRestored value)  backupRestored,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( BackupCreateRequested value)  createRequested,required TResult Function( BackupShareRequested value)  shareRequested,required TResult Function( BackupPickAndRestoreRequested value)  pickAndRestoreRequested,required TResult Function( BackupRestoreConfirmed value)  restoreConfirmed,required TResult Function( BackupMessageConsumed value)  messageConsumed,}){
 final _that = this;
 switch (_that) {
-case BackupCreated():
-return backupCreated(_that);case BackupShared():
-return backupShared(_that);case BackupRestored():
-return backupRestored(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+case BackupCreateRequested():
+return createRequested(_that);case BackupShareRequested():
+return shareRequested(_that);case BackupPickAndRestoreRequested():
+return pickAndRestoreRequested(_that);case BackupRestoreConfirmed():
+return restoreConfirmed(_that);case BackupMessageConsumed():
+return messageConsumed(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -102,13 +103,15 @@ return backupRestored(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( BackupCreated value)?  backupCreated,TResult? Function( BackupShared value)?  backupShared,TResult? Function( BackupRestored value)?  backupRestored,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( BackupCreateRequested value)?  createRequested,TResult? Function( BackupShareRequested value)?  shareRequested,TResult? Function( BackupPickAndRestoreRequested value)?  pickAndRestoreRequested,TResult? Function( BackupRestoreConfirmed value)?  restoreConfirmed,TResult? Function( BackupMessageConsumed value)?  messageConsumed,}){
 final _that = this;
 switch (_that) {
-case BackupCreated() when backupCreated != null:
-return backupCreated(_that);case BackupShared() when backupShared != null:
-return backupShared(_that);case BackupRestored() when backupRestored != null:
-return backupRestored(_that);case _:
+case BackupCreateRequested() when createRequested != null:
+return createRequested(_that);case BackupShareRequested() when shareRequested != null:
+return shareRequested(_that);case BackupPickAndRestoreRequested() when pickAndRestoreRequested != null:
+return pickAndRestoreRequested(_that);case BackupRestoreConfirmed() when restoreConfirmed != null:
+return restoreConfirmed(_that);case BackupMessageConsumed() when messageConsumed != null:
+return messageConsumed(_that);case _:
   return null;
 
 }
@@ -125,12 +128,14 @@ return backupRestored(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  backupCreated,TResult Function( String filePath)?  backupShared,TResult Function( String filePath)?  backupRestored,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  createRequested,TResult Function( String filePath)?  shareRequested,TResult Function()?  pickAndRestoreRequested,TResult Function( String filePath)?  restoreConfirmed,TResult Function()?  messageConsumed,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case BackupCreated() when backupCreated != null:
-return backupCreated();case BackupShared() when backupShared != null:
-return backupShared(_that.filePath);case BackupRestored() when backupRestored != null:
-return backupRestored(_that.filePath);case _:
+case BackupCreateRequested() when createRequested != null:
+return createRequested();case BackupShareRequested() when shareRequested != null:
+return shareRequested(_that.filePath);case BackupPickAndRestoreRequested() when pickAndRestoreRequested != null:
+return pickAndRestoreRequested();case BackupRestoreConfirmed() when restoreConfirmed != null:
+return restoreConfirmed(_that.filePath);case BackupMessageConsumed() when messageConsumed != null:
+return messageConsumed();case _:
   return orElse();
 
 }
@@ -148,15 +153,14 @@ return backupRestored(_that.filePath);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  backupCreated,required TResult Function( String filePath)  backupShared,required TResult Function( String filePath)  backupRestored,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  createRequested,required TResult Function( String filePath)  shareRequested,required TResult Function()  pickAndRestoreRequested,required TResult Function( String filePath)  restoreConfirmed,required TResult Function()  messageConsumed,}) {final _that = this;
 switch (_that) {
-case BackupCreated():
-return backupCreated();case BackupShared():
-return backupShared(_that.filePath);case BackupRestored():
-return backupRestored(_that.filePath);case _:
-  throw StateError('Unexpected subclass');
-
-}
+case BackupCreateRequested():
+return createRequested();case BackupShareRequested():
+return shareRequested(_that.filePath);case BackupPickAndRestoreRequested():
+return pickAndRestoreRequested();case BackupRestoreConfirmed():
+return restoreConfirmed(_that.filePath);case BackupMessageConsumed():
+return messageConsumed();}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -170,12 +174,14 @@ return backupRestored(_that.filePath);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  backupCreated,TResult? Function( String filePath)?  backupShared,TResult? Function( String filePath)?  backupRestored,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  createRequested,TResult? Function( String filePath)?  shareRequested,TResult? Function()?  pickAndRestoreRequested,TResult? Function( String filePath)?  restoreConfirmed,TResult? Function()?  messageConsumed,}) {final _that = this;
 switch (_that) {
-case BackupCreated() when backupCreated != null:
-return backupCreated();case BackupShared() when backupShared != null:
-return backupShared(_that.filePath);case BackupRestored() when backupRestored != null:
-return backupRestored(_that.filePath);case _:
+case BackupCreateRequested() when createRequested != null:
+return createRequested();case BackupShareRequested() when shareRequested != null:
+return shareRequested(_that.filePath);case BackupPickAndRestoreRequested() when pickAndRestoreRequested != null:
+return pickAndRestoreRequested();case BackupRestoreConfirmed() when restoreConfirmed != null:
+return restoreConfirmed(_that.filePath);case BackupMessageConsumed() when messageConsumed != null:
+return messageConsumed();case _:
   return null;
 
 }
@@ -186,8 +192,8 @@ return backupRestored(_that.filePath);case _:
 /// @nodoc
 
 
-class BackupCreated implements BackupEvent {
-  const BackupCreated();
+class BackupCreateRequested implements BackupEvent {
+  const BackupCreateRequested();
   
 
 
@@ -197,7 +203,7 @@ class BackupCreated implements BackupEvent {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupCreated);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupCreateRequested);
 }
 
 
@@ -206,7 +212,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'BackupEvent.backupCreated()';
+  return 'BackupEvent.createRequested()';
 }
 
 
@@ -218,8 +224,8 @@ String toString() {
 /// @nodoc
 
 
-class BackupShared implements BackupEvent {
-  const BackupShared({required this.filePath});
+class BackupShareRequested implements BackupEvent {
+  const BackupShareRequested({required this.filePath});
   
 
  final  String filePath;
@@ -228,13 +234,13 @@ class BackupShared implements BackupEvent {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$BackupSharedCopyWith<BackupShared> get copyWith => _$BackupSharedCopyWithImpl<BackupShared>(this, _$identity);
+$BackupShareRequestedCopyWith<BackupShareRequested> get copyWith => _$BackupShareRequestedCopyWithImpl<BackupShareRequested>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupShared&&(identical(other.filePath, filePath) || other.filePath == filePath));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupShareRequested&&(identical(other.filePath, filePath) || other.filePath == filePath));
 }
 
 
@@ -243,15 +249,15 @@ int get hashCode => Object.hash(runtimeType,filePath);
 
 @override
 String toString() {
-  return 'BackupEvent.backupShared(filePath: $filePath)';
+  return 'BackupEvent.shareRequested(filePath: $filePath)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $BackupSharedCopyWith<$Res> implements $BackupEventCopyWith<$Res> {
-  factory $BackupSharedCopyWith(BackupShared value, $Res Function(BackupShared) _then) = _$BackupSharedCopyWithImpl;
+abstract mixin class $BackupShareRequestedCopyWith<$Res> implements $BackupEventCopyWith<$Res> {
+  factory $BackupShareRequestedCopyWith(BackupShareRequested value, $Res Function(BackupShareRequested) _then) = _$BackupShareRequestedCopyWithImpl;
 @useResult
 $Res call({
  String filePath
@@ -262,17 +268,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$BackupSharedCopyWithImpl<$Res>
-    implements $BackupSharedCopyWith<$Res> {
-  _$BackupSharedCopyWithImpl(this._self, this._then);
+class _$BackupShareRequestedCopyWithImpl<$Res>
+    implements $BackupShareRequestedCopyWith<$Res> {
+  _$BackupShareRequestedCopyWithImpl(this._self, this._then);
 
-  final BackupShared _self;
-  final $Res Function(BackupShared) _then;
+  final BackupShareRequested _self;
+  final $Res Function(BackupShareRequested) _then;
 
 /// Create a copy of BackupEvent
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? filePath = null,}) {
-  return _then(BackupShared(
+  return _then(BackupShareRequested(
 filePath: null == filePath ? _self.filePath : filePath // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -284,8 +290,40 @@ as String,
 /// @nodoc
 
 
-class BackupRestored implements BackupEvent {
-  const BackupRestored({required this.filePath});
+class BackupPickAndRestoreRequested implements BackupEvent {
+  const BackupPickAndRestoreRequested();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupPickAndRestoreRequested);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'BackupEvent.pickAndRestoreRequested()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class BackupRestoreConfirmed implements BackupEvent {
+  const BackupRestoreConfirmed({required this.filePath});
   
 
  final  String filePath;
@@ -294,13 +332,13 @@ class BackupRestored implements BackupEvent {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$BackupRestoredCopyWith<BackupRestored> get copyWith => _$BackupRestoredCopyWithImpl<BackupRestored>(this, _$identity);
+$BackupRestoreConfirmedCopyWith<BackupRestoreConfirmed> get copyWith => _$BackupRestoreConfirmedCopyWithImpl<BackupRestoreConfirmed>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupRestored&&(identical(other.filePath, filePath) || other.filePath == filePath));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupRestoreConfirmed&&(identical(other.filePath, filePath) || other.filePath == filePath));
 }
 
 
@@ -309,15 +347,15 @@ int get hashCode => Object.hash(runtimeType,filePath);
 
 @override
 String toString() {
-  return 'BackupEvent.backupRestored(filePath: $filePath)';
+  return 'BackupEvent.restoreConfirmed(filePath: $filePath)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $BackupRestoredCopyWith<$Res> implements $BackupEventCopyWith<$Res> {
-  factory $BackupRestoredCopyWith(BackupRestored value, $Res Function(BackupRestored) _then) = _$BackupRestoredCopyWithImpl;
+abstract mixin class $BackupRestoreConfirmedCopyWith<$Res> implements $BackupEventCopyWith<$Res> {
+  factory $BackupRestoreConfirmedCopyWith(BackupRestoreConfirmed value, $Res Function(BackupRestoreConfirmed) _then) = _$BackupRestoreConfirmedCopyWithImpl;
 @useResult
 $Res call({
  String filePath
@@ -328,17 +366,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$BackupRestoredCopyWithImpl<$Res>
-    implements $BackupRestoredCopyWith<$Res> {
-  _$BackupRestoredCopyWithImpl(this._self, this._then);
+class _$BackupRestoreConfirmedCopyWithImpl<$Res>
+    implements $BackupRestoreConfirmedCopyWith<$Res> {
+  _$BackupRestoreConfirmedCopyWithImpl(this._self, this._then);
 
-  final BackupRestored _self;
-  final $Res Function(BackupRestored) _then;
+  final BackupRestoreConfirmed _self;
+  final $Res Function(BackupRestoreConfirmed) _then;
 
 /// Create a copy of BackupEvent
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? filePath = null,}) {
-  return _then(BackupRestored(
+  return _then(BackupRestoreConfirmed(
 filePath: null == filePath ? _self.filePath : filePath // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -346,5 +384,37 @@ as String,
 
 
 }
+
+/// @nodoc
+
+
+class BackupMessageConsumed implements BackupEvent {
+  const BackupMessageConsumed();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupMessageConsumed);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'BackupEvent.messageConsumed()';
+}
+
+
+}
+
+
+
 
 // dart format on

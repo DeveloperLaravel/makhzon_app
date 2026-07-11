@@ -5,20 +5,17 @@ import '../../domain/entities/backup_info_entity.dart';
 part 'backup_state.freezed.dart';
 
 @freezed
-sealed class BackupState with _$BackupState {
-  const factory BackupState.initial() = BackupInitial;
+abstract class BackupState with _$BackupState {
+  const factory BackupState({
+    @Default(false)
+    bool isLoading,
 
-  const factory BackupState.loading() = BackupLoading;
+    BackupInfoEntity? latestBackup,
 
-  const factory BackupState.created({
-    required BackupInfoEntity backup,
-  }) = BackupCreatedState;
+    String? selectedRestorePath,
 
-  const factory BackupState.success({
-    required String message,
-  }) = BackupSuccess;
+    String? successMessage,
 
-  const factory BackupState.failure({
-    required String message,
-  }) = BackupFailure;
+    String? errorMessage,
+  }) = _BackupState;
 }

@@ -3,14 +3,21 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'backup_event.freezed.dart';
 
 @freezed
-class BackupEvent with _$BackupEvent {
-  const factory BackupEvent.backupCreated() = BackupCreated;
+sealed class BackupEvent with _$BackupEvent {
+  const factory BackupEvent.createRequested() =
+      BackupCreateRequested;
 
-  const factory BackupEvent.backupShared({
+  const factory BackupEvent.shareRequested({
     required String filePath,
-  }) = BackupShared;
+  }) = BackupShareRequested;
 
-  const factory BackupEvent.backupRestored({
+  const factory BackupEvent.pickAndRestoreRequested() =
+      BackupPickAndRestoreRequested;
+
+  const factory BackupEvent.restoreConfirmed({
     required String filePath,
-  }) = BackupRestored;
+  }) = BackupRestoreConfirmed;
+
+  const factory BackupEvent.messageConsumed() =
+      BackupMessageConsumed;
 }

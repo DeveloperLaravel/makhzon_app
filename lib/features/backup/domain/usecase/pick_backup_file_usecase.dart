@@ -7,18 +7,16 @@ import '../../../../core/usecase/usecase.dart';
 import '../repositories/backup_repository.dart';
 
 @injectable
-class RestoreBackupUsecase
-    implements Usecase<Unit, String> {
+class PickBackupFileUsecase
+    implements Usecase<String?, NoParams> {
   final BackupRepository repository;
 
-  RestoreBackupUsecase(this.repository);
+  PickBackupFileUsecase(this.repository);
 
   @override
-  Future<Either<Failure, Unit>> call(
-    String filePath,
+  Future<Either<Failure, String?>> call(
+    NoParams params,
   ) {
-    return repository.restoreBackup(
-      filePath: filePath,
-    );
+    return repository.pickBackupFile();
   }
 }
