@@ -56,6 +56,18 @@ import 'package:makhzon_app/features/item/domain/usecases/update_item_usecase.da
     as _i690;
 import 'package:makhzon_app/features/item/presentation/bloc/item_bloc.dart'
     as _i343;
+import 'package:makhzon_app/features/settings/data/datasources/theme_local_datasource.dart'
+    as _i962;
+import 'package:makhzon_app/features/settings/data/repositories/theme_repository_impl.dart'
+    as _i951;
+import 'package:makhzon_app/features/settings/domain/repositories/theme_repository.dart'
+    as _i898;
+import 'package:makhzon_app/features/settings/domain/usecases/get_theme_mode_usecase.dart'
+    as _i914;
+import 'package:makhzon_app/features/settings/domain/usecases/save_theme_mode_usecase.dart'
+    as _i250;
+import 'package:makhzon_app/features/settings/presentation/cubit/theme_cubit.dart'
+    as _i736;
 import 'package:makhzon_app/features/stock/data/datasources/stock_local_datasource.dart'
     as _i503;
 import 'package:makhzon_app/features/stock/data/repositories/stock_repository_impl.dart'
@@ -96,6 +108,7 @@ import 'package:makhzon_app/features/warehouse/domain/usecases/update_warehouse_
     as _i514;
 import 'package:makhzon_app/features/warehouse/presentation/bloc/warehouse_bloc.dart'
     as _i324;
+import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -106,9 +119,15 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final registerModule = _$RegisterModule();
     gh.lazySingleton<_i888.BackupFileService>(() => _i888.BackupFileService());
+    gh.lazySingleton<_i460.SharedPreferencesAsync>(
+      () => registerModule.sharedPreferencesAsync,
+    );
     await gh.lazySingletonAsync<_i214.Isar>(
       () => registerModule.isar,
       preResolve: true,
+    );
+    gh.lazySingleton<_i962.ThemeLocalDatasource>(
+      () => _i962.ThemeLocalDatasourceImpl(gh<_i460.SharedPreferencesAsync>()),
     );
     gh.lazySingleton<_i198.TransferLocalDatasource>(
       () => _i198.TransferLocalDatasourceImpl(gh<_i214.Isar>()),
@@ -116,11 +135,20 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i173.WarehouseLocalDatasource>(
       () => _i173.WarehouseLocalDatasourceImpl(gh<_i214.Isar>()),
     );
+    gh.lazySingleton<_i898.ThemeRepository>(
+      () => _i951.ThemeRepositoryImpl(gh<_i962.ThemeLocalDatasource>()),
+    );
     gh.lazySingleton<_i919.WarehouseRepository>(
       () => _i272.WarehouseRepositoryImpl(gh<_i173.WarehouseLocalDatasource>()),
     );
     gh.lazySingleton<_i846.IssueLocalDatasource>(
       () => _i846.IssueLocalDatasourceImpl(gh<_i214.Isar>()),
+    );
+    gh.factory<_i914.GetThemeModeUsecase>(
+      () => _i914.GetThemeModeUsecase(gh<_i898.ThemeRepository>()),
+    );
+    gh.factory<_i250.SaveThemeModeUsecase>(
+      () => _i250.SaveThemeModeUsecase(gh<_i898.ThemeRepository>()),
     );
     gh.lazySingleton<_i50.BackupLocalDatasource>(
       () => _i50.BackupLocalDatasourceImpl(gh<_i214.Isar>()),
@@ -172,6 +200,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i523.ShareBackupUsecase>(
       () => _i523.ShareBackupUsecase(gh<_i433.BackupRepository>()),
+    );
+    gh.factory<_i736.ThemeCubit>(
+      () => _i736.ThemeCubit(
+        getThemeMode: gh<_i914.GetThemeModeUsecase>(),
+        saveThemeMode: gh<_i250.SaveThemeModeUsecase>(),
+      ),
     );
     gh.factory<_i324.WarehouseBloc>(
       () => _i324.WarehouseBloc(

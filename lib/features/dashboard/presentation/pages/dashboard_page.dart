@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/router/route_name.dart';
 
+import '../../../settings/presentation/cubit/theme_cubit.dart';
+import '../../../settings/presentation/cubit/theme_state.dart';
+import '../../../settings/presentation/widgets/theme_mode_sheet.dart';
 import '../../../warehouse/presentation/bloc/warehouse_bloc.dart';
 import '../../../warehouse/presentation/bloc/warehouse_state.dart';
 
@@ -37,16 +40,53 @@ class DashboardPage extends StatelessWidget {
           ),
         ),
         centerTitle: false,
-        actions: [
-          IconButton(
-            tooltip: 'النسخ الاحتياطي',
-            onPressed: () {
-              context.push(RouteNames.backup);
-            },
-            icon: const Icon(Icons.cloud_upload_outlined),
+       actions: [
+  BlocBuilder<ThemeCubit, ThemeState>(
+    buildWhen: (previous, current) {
+      return previous.themeMode != current.themeMode;
+    },
+    builder: (context, state) {
+      final isCurrentlyDark =
+          Theme.of(context).brightness == Brightness.dark;
+
+      return IconButton(
+        tooltip: 'تغيير المظهر',
+        onPressed: () {
+          ThemeModeSheet.show(context);
+          
+        },
+        icon: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 250),
+          transitionBuilder: (child, animation) {
+            return RotationTransition(
+              turns: animation,
+              child: FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
+            );
+          },
+          child: Icon(
+            isCurrentlyDark
+                ? Icons.dark_mode_rounded
+                : Icons.light_mode_rounded,
+            key: ValueKey(isCurrentlyDark),
           ),
-          const SizedBox(width: 8),
-        ],
+        ),
+      );
+    },
+  ),
+
+  IconButton(
+    tooltip: 'النسخ الاحتياطي',
+    onPressed: () {
+      context.push(RouteNames.backup);
+    },
+    icon: const Icon(Icons.cloud_upload_outlined),
+  ),
+
+  const SizedBox(width: 8),
+],
       ),
       body: RefreshIndicator(
         onRefresh: () async {
