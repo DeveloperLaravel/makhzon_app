@@ -128,6 +128,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => registerModule.isar,
       preResolve: true,
     );
+    gh.lazySingleton<_i736.ThemeCubit>(() => _i736.ThemeCubit());
     gh.lazySingleton<_i962.ThemeLocalDatasource>(
       () => _i962.ThemeLocalDatasourceImpl(gh<_i460.SharedPreferencesAsync>()),
     );
@@ -205,12 +206,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i523.ShareBackupUsecase>(
       () => _i523.ShareBackupUsecase(gh<_i433.BackupRepository>()),
-    );
-    gh.factory<_i736.ThemeCubit>(
-      () => _i736.ThemeCubit(
-        getThemeMode: gh<_i914.GetThemeModeUsecase>(),
-        saveThemeMode: gh<_i250.SaveThemeModeUsecase>(),
-      ),
     );
     gh.factory<_i324.WarehouseBloc>(
       () => _i324.WarehouseBloc(

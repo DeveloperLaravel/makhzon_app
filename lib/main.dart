@@ -26,52 +26,75 @@ Future<void> main() async {
 
   await configureDependencies();
 
-  runApp(const MakhzonProviders());
+  final themeCubit = getIt<ThemeCubit>();
+
+  await themeCubit.loadSettings();
+
+  runApp(
+    MakhzonProviders(
+      themeCubit: themeCubit,
+    ),
+  );
 }
 
 class MakhzonProviders extends StatelessWidget {
-  const MakhzonProviders({super.key});
+  final ThemeCubit themeCubit;
+
+  const MakhzonProviders({
+    required this.themeCubit,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<ThemeCubit>(
-          create: (_) => getIt<ThemeCubit>()..loadTheme(),
+        BlocProvider<ThemeCubit>.value(
+          value: themeCubit,
         ),
 
         BlocProvider<WarehouseBloc>(
           create: (_) {
             return getIt<WarehouseBloc>()
-              ..add(const WarehouseEvent.started());
+              ..add(
+                const WarehouseEvent.started(),
+              );
           },
         ),
 
         BlocProvider<ItemBloc>(
           create: (_) {
             return getIt<ItemBloc>()
-              ..add(const ItemEvent.started());
+              ..add(
+                const ItemEvent.started(),
+              );
           },
         ),
 
         BlocProvider<StockBloc>(
           create: (_) {
             return getIt<StockBloc>()
-              ..add(const StockEvent.started());
+              ..add(
+                const StockEvent.started(),
+              );
           },
         ),
 
         BlocProvider<IssueBloc>(
           create: (_) {
             return getIt<IssueBloc>()
-              ..add(const IssueEvent.started());
+              ..add(
+                const IssueEvent.started(),
+              );
           },
         ),
 
         BlocProvider<TransferBloc>(
           create: (_) {
             return getIt<TransferBloc>()
-              ..add(const TransferEvent.started());
+              ..add(
+                const TransferEvent.started(),
+              );
           },
         ),
       ],

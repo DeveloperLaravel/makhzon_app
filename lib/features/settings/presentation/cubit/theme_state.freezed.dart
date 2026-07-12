@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ThemeState {
 
- AppThemeMode get themeMode; bool get loading; String? get errorMessage;
+ ThemeMode get themeMode; double get fontScale; int get primaryColorValue; int get titleColorValue; int get bodyTextColorValue; bool get useCustomTextColors; bool get isLoaded;
 /// Create a copy of ThemeState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ThemeStateCopyWith<ThemeState> get copyWith => _$ThemeStateCopyWithImpl<ThemeSt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ThemeState&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.loading, loading) || other.loading == loading)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ThemeState&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.fontScale, fontScale) || other.fontScale == fontScale)&&(identical(other.primaryColorValue, primaryColorValue) || other.primaryColorValue == primaryColorValue)&&(identical(other.titleColorValue, titleColorValue) || other.titleColorValue == titleColorValue)&&(identical(other.bodyTextColorValue, bodyTextColorValue) || other.bodyTextColorValue == bodyTextColorValue)&&(identical(other.useCustomTextColors, useCustomTextColors) || other.useCustomTextColors == useCustomTextColors)&&(identical(other.isLoaded, isLoaded) || other.isLoaded == isLoaded));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,themeMode,loading,errorMessage);
+int get hashCode => Object.hash(runtimeType,themeMode,fontScale,primaryColorValue,titleColorValue,bodyTextColorValue,useCustomTextColors,isLoaded);
 
 @override
 String toString() {
-  return 'ThemeState(themeMode: $themeMode, loading: $loading, errorMessage: $errorMessage)';
+  return 'ThemeState(themeMode: $themeMode, fontScale: $fontScale, primaryColorValue: $primaryColorValue, titleColorValue: $titleColorValue, bodyTextColorValue: $bodyTextColorValue, useCustomTextColors: $useCustomTextColors, isLoaded: $isLoaded)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $ThemeStateCopyWith<$Res>  {
   factory $ThemeStateCopyWith(ThemeState value, $Res Function(ThemeState) _then) = _$ThemeStateCopyWithImpl;
 @useResult
 $Res call({
- AppThemeMode themeMode, bool loading, String? errorMessage
+ ThemeMode themeMode, double fontScale, int primaryColorValue, int titleColorValue, int bodyTextColorValue, bool useCustomTextColors, bool isLoaded
 });
 
 
@@ -62,12 +62,16 @@ class _$ThemeStateCopyWithImpl<$Res>
 
 /// Create a copy of ThemeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? themeMode = null,Object? loading = null,Object? errorMessage = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? themeMode = null,Object? fontScale = null,Object? primaryColorValue = null,Object? titleColorValue = null,Object? bodyTextColorValue = null,Object? useCustomTextColors = null,Object? isLoaded = null,}) {
   return _then(_self.copyWith(
 themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
-as AppThemeMode,loading: null == loading ? _self.loading : loading // ignore: cast_nullable_to_non_nullable
-as bool,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
-as String?,
+as ThemeMode,fontScale: null == fontScale ? _self.fontScale : fontScale // ignore: cast_nullable_to_non_nullable
+as double,primaryColorValue: null == primaryColorValue ? _self.primaryColorValue : primaryColorValue // ignore: cast_nullable_to_non_nullable
+as int,titleColorValue: null == titleColorValue ? _self.titleColorValue : titleColorValue // ignore: cast_nullable_to_non_nullable
+as int,bodyTextColorValue: null == bodyTextColorValue ? _self.bodyTextColorValue : bodyTextColorValue // ignore: cast_nullable_to_non_nullable
+as int,useCustomTextColors: null == useCustomTextColors ? _self.useCustomTextColors : useCustomTextColors // ignore: cast_nullable_to_non_nullable
+as bool,isLoaded: null == isLoaded ? _self.isLoaded : isLoaded // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -114,7 +118,10 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _ThemeState():
-return $default(_that);}
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -149,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AppThemeMode themeMode,  bool loading,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ThemeMode themeMode,  double fontScale,  int primaryColorValue,  int titleColorValue,  int bodyTextColorValue,  bool useCustomTextColors,  bool isLoaded)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ThemeState() when $default != null:
-return $default(_that.themeMode,_that.loading,_that.errorMessage);case _:
+return $default(_that.themeMode,_that.fontScale,_that.primaryColorValue,_that.titleColorValue,_that.bodyTextColorValue,_that.useCustomTextColors,_that.isLoaded);case _:
   return orElse();
 
 }
@@ -170,10 +177,13 @@ return $default(_that.themeMode,_that.loading,_that.errorMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AppThemeMode themeMode,  bool loading,  String? errorMessage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ThemeMode themeMode,  double fontScale,  int primaryColorValue,  int titleColorValue,  int bodyTextColorValue,  bool useCustomTextColors,  bool isLoaded)  $default,) {final _that = this;
 switch (_that) {
 case _ThemeState():
-return $default(_that.themeMode,_that.loading,_that.errorMessage);}
+return $default(_that.themeMode,_that.fontScale,_that.primaryColorValue,_that.titleColorValue,_that.bodyTextColorValue,_that.useCustomTextColors,_that.isLoaded);case _:
+  throw StateError('Unexpected subclass');
+
+}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -187,10 +197,10 @@ return $default(_that.themeMode,_that.loading,_that.errorMessage);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AppThemeMode themeMode,  bool loading,  String? errorMessage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ThemeMode themeMode,  double fontScale,  int primaryColorValue,  int titleColorValue,  int bodyTextColorValue,  bool useCustomTextColors,  bool isLoaded)?  $default,) {final _that = this;
 switch (_that) {
 case _ThemeState() when $default != null:
-return $default(_that.themeMode,_that.loading,_that.errorMessage);case _:
+return $default(_that.themeMode,_that.fontScale,_that.primaryColorValue,_that.titleColorValue,_that.bodyTextColorValue,_that.useCustomTextColors,_that.isLoaded);case _:
   return null;
 
 }
@@ -201,13 +211,17 @@ return $default(_that.themeMode,_that.loading,_that.errorMessage);case _:
 /// @nodoc
 
 
-class _ThemeState implements ThemeState {
-  const _ThemeState({this.themeMode = AppThemeMode.system, this.loading = false, this.errorMessage});
+class _ThemeState extends ThemeState {
+  const _ThemeState({this.themeMode = ThemeMode.system, this.fontScale = 1.0, this.primaryColorValue = 0xFF1565C0, this.titleColorValue = 0xFF0D47A1, this.bodyTextColorValue = 0xFF212121, this.useCustomTextColors = false, this.isLoaded = false}): super._();
   
 
-@override@JsonKey() final  AppThemeMode themeMode;
-@override@JsonKey() final  bool loading;
-@override final  String? errorMessage;
+@override@JsonKey() final  ThemeMode themeMode;
+@override@JsonKey() final  double fontScale;
+@override@JsonKey() final  int primaryColorValue;
+@override@JsonKey() final  int titleColorValue;
+@override@JsonKey() final  int bodyTextColorValue;
+@override@JsonKey() final  bool useCustomTextColors;
+@override@JsonKey() final  bool isLoaded;
 
 /// Create a copy of ThemeState
 /// with the given fields replaced by the non-null parameter values.
@@ -219,16 +233,16 @@ _$ThemeStateCopyWith<_ThemeState> get copyWith => __$ThemeStateCopyWithImpl<_The
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ThemeState&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.loading, loading) || other.loading == loading)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ThemeState&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.fontScale, fontScale) || other.fontScale == fontScale)&&(identical(other.primaryColorValue, primaryColorValue) || other.primaryColorValue == primaryColorValue)&&(identical(other.titleColorValue, titleColorValue) || other.titleColorValue == titleColorValue)&&(identical(other.bodyTextColorValue, bodyTextColorValue) || other.bodyTextColorValue == bodyTextColorValue)&&(identical(other.useCustomTextColors, useCustomTextColors) || other.useCustomTextColors == useCustomTextColors)&&(identical(other.isLoaded, isLoaded) || other.isLoaded == isLoaded));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,themeMode,loading,errorMessage);
+int get hashCode => Object.hash(runtimeType,themeMode,fontScale,primaryColorValue,titleColorValue,bodyTextColorValue,useCustomTextColors,isLoaded);
 
 @override
 String toString() {
-  return 'ThemeState(themeMode: $themeMode, loading: $loading, errorMessage: $errorMessage)';
+  return 'ThemeState(themeMode: $themeMode, fontScale: $fontScale, primaryColorValue: $primaryColorValue, titleColorValue: $titleColorValue, bodyTextColorValue: $bodyTextColorValue, useCustomTextColors: $useCustomTextColors, isLoaded: $isLoaded)';
 }
 
 
@@ -239,7 +253,7 @@ abstract mixin class _$ThemeStateCopyWith<$Res> implements $ThemeStateCopyWith<$
   factory _$ThemeStateCopyWith(_ThemeState value, $Res Function(_ThemeState) _then) = __$ThemeStateCopyWithImpl;
 @override @useResult
 $Res call({
- AppThemeMode themeMode, bool loading, String? errorMessage
+ ThemeMode themeMode, double fontScale, int primaryColorValue, int titleColorValue, int bodyTextColorValue, bool useCustomTextColors, bool isLoaded
 });
 
 
@@ -256,12 +270,16 @@ class __$ThemeStateCopyWithImpl<$Res>
 
 /// Create a copy of ThemeState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? themeMode = null,Object? loading = null,Object? errorMessage = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? themeMode = null,Object? fontScale = null,Object? primaryColorValue = null,Object? titleColorValue = null,Object? bodyTextColorValue = null,Object? useCustomTextColors = null,Object? isLoaded = null,}) {
   return _then(_ThemeState(
 themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
-as AppThemeMode,loading: null == loading ? _self.loading : loading // ignore: cast_nullable_to_non_nullable
-as bool,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
-as String?,
+as ThemeMode,fontScale: null == fontScale ? _self.fontScale : fontScale // ignore: cast_nullable_to_non_nullable
+as double,primaryColorValue: null == primaryColorValue ? _self.primaryColorValue : primaryColorValue // ignore: cast_nullable_to_non_nullable
+as int,titleColorValue: null == titleColorValue ? _self.titleColorValue : titleColorValue // ignore: cast_nullable_to_non_nullable
+as int,bodyTextColorValue: null == bodyTextColorValue ? _self.bodyTextColorValue : bodyTextColorValue // ignore: cast_nullable_to_non_nullable
+as int,useCustomTextColors: null == useCustomTextColors ? _self.useCustomTextColors : useCustomTextColors // ignore: cast_nullable_to_non_nullable
+as bool,isLoaded: null == isLoaded ? _self.isLoaded : isLoaded // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
